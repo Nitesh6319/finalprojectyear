@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Activity Planning</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 60px;
+            margin-bottom: 7rem;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        h2 {
+            color: #343a40;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .navbar{
+            background-color: #e3f2fd;
+        }
+    </style>
+</head>
+<body  style="background: url('cog.svg') no-repeat; background-size: cover;"> 
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="caregiver.html">Home</a>
+            <a class="nav-item nav-link" href="diet.html">Add a Diet</a>
+            <a class="nav-item nav-link" href="addmedicine.html">Medicine</a>
+            <a class="nav-item nav-link" href="contact.html">Contact us</a>
+          </div>
+        </div>
+      </nav>
+
+<div class="container">
+    <h1 class="text-center">Patient Schedule</h1>
+
+    <!-- Caregiver Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Add a Schedule</h2>
+            <form id="caregiverForm">
+                <div class="form-group">
+                    <label for="activity">Activity:</label>
+                    <input type="text" class="form-control" id="activity" placeholder="Enter activity" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" class="form-control" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" class="form-control" id="time" required>
+                </div>
+                <button type="button" class="btn btn-primary btn-block" onclick="addCaregiverActivity()">Add Activity</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function addCaregiverActivity() {
+        const activity = document.getElementById('activity').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+
+        if (activity && date && time) {
+            const caregiverActivity = { activity, date, time };
+            saveCaregiverActivity(caregiverActivity);
+            document.getElementById('caregiverForm').reset();
+        } else {
+            alert('Please fill in all fields.');
+        }
+    }
+
+    function saveCaregiverActivity(activity) {
+        let caregiverActivities = JSON.parse(localStorage.getItem('caregiverActivities')) || [];
+        caregiverActivities.push(activity);
+        localStorage.setItem('caregiverActivities', JSON.stringify(caregiverActivities));
+    }
+</script>
+
+</body>
+</html>
